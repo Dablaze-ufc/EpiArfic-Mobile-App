@@ -1,0 +1,2 @@
+rootProject.name='EpiArfic-Mobile-App'
+include ':app'

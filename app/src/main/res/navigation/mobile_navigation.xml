@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_recent">
+
+    <fragment
+        android:id="@+id/nav_recent"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.recent.RecentFragment"
+        android:label="Recent"
+        tools:layout="@layout/fragment_recent">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_health"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.health.HealthFragment"
+        android:label="Health"
+        tools:layout="@layout/fragment_health" />
+
+    <fragment
+        android:id="@+id/nav_research"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.research.ResearchFragment"
+        android:label="Research"
+        tools:layout="@layout/fragment_research" />
+    <fragment
+        android:id="@+id/nav_business"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.business.BusinessFragment"
+        android:label="Business"
+        tools:layout="@layout/business_fragment"/>
+    <fragment
+        android:id="@+id/nav_education"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.education.EducationFragment"
+        android:label="Education"
+        tools:layout="@layout/education_fragment"/>
+    <fragment
+        android:id="@+id/nav_community"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.community.CommunityFragment"
+        android:label="Community"
+        tools:layout="@layout/community_fragment"/>
+    <fragment
+        android:id="@+id/nav_others"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.others.OthersFragment"
+        android:label="Others"
+        tools:layout="@layout/others_fragment"/>
+    <fragment
+        android:id="@+id/nav_vulnerable_population"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.vunerable_population.VulnerablePopulationFragment"
+        android:label="Vulnerable Population"
+        tools:layout="@layout/vunerable_population_fragment"/>
+</navigation>
