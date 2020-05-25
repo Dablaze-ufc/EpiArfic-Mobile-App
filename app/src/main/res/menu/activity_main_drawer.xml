@@ -6,40 +6,40 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_recent"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Recent" />
+            android:icon="@drawable/recent"
+            android:title="@string/recent" />
         <item
             android:id="@+id/nav_health"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Health" />
+            android:icon="@drawable/health"
+            android:title="@string/health" />
         <item
             android:id="@+id/nav_research"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Research" />
+            android:icon="@drawable/research"
+            android:title="@string/research" />
 
         <item
             android:id="@+id/nav_education"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Education" />
+            android:icon="@drawable/education"
+            android:title="@string/education" />
 
         <item
             android:id="@+id/nav_community"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Community" />
+            android:icon="@drawable/community"
+            android:title="@string/community" />
 
         <item
             android:id="@+id/nav_business"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Business" />
+            android:icon="@drawable/business"
+            android:title="@string/business" />
 
         <item
             android:id="@+id/nav_vulnerable_population"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Vulnerable Population" />
+            android:icon="@drawable/vulnorable"
+            android:title="@string/vulnerable_population" />
 
         <item
             android:id="@+id/nav_others"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Others" />
+            android:icon="@drawable/others"
+            android:title="@string/others" />
     </group>
 </menu>
