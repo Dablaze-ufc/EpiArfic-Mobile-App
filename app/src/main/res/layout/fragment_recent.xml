@@ -18,6 +18,7 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/recent_list_item"
         />
 
 
