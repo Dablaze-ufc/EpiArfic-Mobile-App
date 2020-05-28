@@ -10,10 +10,11 @@ private const val BASE_URL = "https://epiafric.herokuapp.com/api/v1/reports"
 
 private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-private val retrofit =
-    Retrofit.Builder().addCallAdapterFactory(CoroutineCallAdapterFactory()).addConverterFactory(MoshiConverterFactory.create(
-        moshi)).baseUrl(BASE_URL).build()
 object EntriesApi{
+    private val retrofit =
+        Retrofit.Builder().addCallAdapterFactory(CoroutineCallAdapterFactory()).addConverterFactory(MoshiConverterFactory.create(
+            moshi)).baseUrl(BASE_URL).build()
+
     val retrofitService  : EntriesApiService by lazy {
         retrofit.create(EntriesApiService::class.java)
     }
