@@ -20,8 +20,7 @@
         android:id="@+id/recentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
+
         app:entriesData="@{viewModel.recent}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/recent_list_item"
