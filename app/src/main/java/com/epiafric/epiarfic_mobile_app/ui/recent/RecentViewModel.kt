@@ -76,7 +76,7 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-   val recent = _recent
+   fun getRecent() = _recent
 
 
     override fun onCleared() {

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface EntriesApiService {
-    @GET
-    fun getRecentFromApi(@Query("size") size: String):Deferred<EntriesData>
+    @GET("reports")
+     fun getRecentFromApi(@Query("size") size: Int):Deferred<EntriesData>
 }
