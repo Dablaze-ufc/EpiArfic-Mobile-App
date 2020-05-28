@@ -1,9 +1,7 @@
 package com.epiafric.epiarfic_mobile_app.ui.recent
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.epiafric.epiarfic_mobile_app.database.EntriesDatabase
 import com.epiafric.epiarfic_mobile_app.model.Data
 import com.epiafric.epiarfic_mobile_app.model.EntriesData
@@ -29,14 +27,14 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
 
     private val  recentResponse = MutableLiveData<Event<Result<EntriesData>>> ()
 
-    private val recent : LiveData<List<Data>>
+    private val _recent : LiveData<List<Data>>
 
     init {
         repository = EpiAfricRepository(retrofitService,dao)
 
         getRecentFromDatabase()
 
-        recent = repository.getRecentFromDatabase()
+        _recent = repository.getRecentFromDatabase()
     }
 
     private fun getRecentFromDatabase() {
@@ -78,12 +76,22 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun getRecent():LiveData<List<Data>>{
-        return recent
-    }
+   val recent = _recent
+
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+class RecentViewModelFactory(private val application: Application): ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(RecentViewModel::class.java)){
+
+            return RecentViewModel(application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
