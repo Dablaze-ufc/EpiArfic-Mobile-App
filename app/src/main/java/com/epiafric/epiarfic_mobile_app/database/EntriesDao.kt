@@ -14,5 +14,4 @@ interface EntriesDao {
 
     @Query("SELECT * FROM recent_entries")
     fun getRecentFromDatabase(): LiveData<List<Data>>
-
 }

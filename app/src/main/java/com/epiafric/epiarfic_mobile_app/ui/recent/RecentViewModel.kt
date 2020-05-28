@@ -14,6 +14,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class RecentViewModel(application: Application) : AndroidViewModel(application) {
@@ -25,7 +28,7 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
 
     private val dao = EntriesDatabase.getInstance(application).entriesDao
 
-    private val  recentResponse = MutableLiveData<Event<Result<EntriesData>>> ()
+     val  recentResponse = MutableLiveData<Event<Result<EntriesData>>> ()
 
     private val _recent : LiveData<List<Data>>
 
@@ -47,34 +50,53 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
                 )
             )
         )
-        uiScope.launch {
-            try{
-                repository.getRecentFromApi()
-                recentResponse.postValue(
-                    Event(
-                        Result(
-                            State.SUCCESS,
-                            message = "Success",
-                            isRefreshing = false
-                        )
-                    )
-                )
 
-            }catch (t: Throwable){
-                recentResponse.postValue(
-                    Event(
-                       Result(
-                            State.ERROR,
-                            message = "Check Network Connection",
-                            error = t,
-                            isRefreshing = false
+
+                retrofitService.getRecentFromApi().enqueue(object : Callback<EntriesData>{
+                    override fun onFailure(call: Call<EntriesData>, t: Throwable) {
+                        recentResponse.postValue(
+                            Event(
+                                Result(
+                                    State.ERROR,
+                                    message = t.localizedMessage,
+                                    error = t,
+                                    isRefreshing = false
+                                )
+                            )
                         )
-                    )
-                )
-            }
+                    }
+
+                    override fun onResponse(
+                        call: Call<EntriesData>,
+                        response: Response<EntriesData>
+                    ) {
+                        if (response.isSuccessful){
+                            uiScope.launch {
+                                response.body()?.data?.let {
+                                    repository.setRecentEntries(it)
+                                    recentResponse.postValue(
+                                        Event(
+                                            Result(
+                                                State.SUCCESS,
+                                                message = "Success",
+                                                isRefreshing = false
+                                            )
+                                        )
+                                    )
+                                }
+                                }
+                            }
+                        }
+
+                })
+
+
+
+
+
 
         }
-    }
+
 
    fun getRecent() = _recent
 
