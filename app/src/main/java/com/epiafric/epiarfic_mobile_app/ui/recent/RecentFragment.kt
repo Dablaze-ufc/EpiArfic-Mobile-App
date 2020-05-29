@@ -47,7 +47,9 @@ class RecentFragment : Fragment() {
             }
         })
 
-
+    binding.refreshLayout.setOnRefreshListener {
+        recentViewModel.refreshCall()
+    }
 
         return binding.root
     }

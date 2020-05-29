@@ -6,6 +6,8 @@ import com.epiafric.epiarfic_mobile_app.database.EntriesDao
 import com.epiafric.epiarfic_mobile_app.model.Data
 import com.epiafric.epiarfic_mobile_app.network.EntriesApiService
 import com.epiafric.epiarfic_mobile_app.network.NetworkRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class EpiAfricRepository (private val api:EntriesApiService, private val dao: EntriesDao):NetworkRepo,DatabaseRepo{
     override suspend fun setRecentEntries(recentResponseList: List<Data>) {
@@ -13,14 +15,12 @@ class EpiAfricRepository (private val api:EntriesApiService, private val dao: En
     }
 
 
-//     suspend fun getRecentFromApi() {
-//       withContext(Dispatchers.IO){
-//           val entries = api.getRecentFromApi(200).await()
-//          dao.setRecentEntries(entries.data)
-//
-//           Log.d("repository", "data: ${entries.meta.path}")
-//       }
-//    }
+     suspend fun getRecentFromApi() {
+       withContext(Dispatchers.IO){
+           val entries = api.getRecentFromApi().await()
+          dao.setRecentEntries(entries.data)
+       }
+    }
 
     override fun getRecentFromDatabase(): LiveData<List<Data>> {
         return dao.getRecentFromDatabase()
