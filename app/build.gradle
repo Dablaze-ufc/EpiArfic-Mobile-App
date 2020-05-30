@@ -93,5 +93,7 @@ dependencies {
     // WorkManager
     implementation "android.arch.work:work-runtime-ktx:$version_work"
 
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+
 
 }

@@ -17,9 +17,11 @@ class EpiAfricRepository (private val api:EntriesApiService, private val dao: En
 
      suspend fun getRecentFromApi() {
        withContext(Dispatchers.IO){
-           val entries = api.getRecentFromApi().await()
+           val entries = api.getRecentFromApi(300).await()
           dao.setRecentEntries(entries.data)
        }
+
+
     }
 
     override fun getRecentFromDatabase(): LiveData<List<Data>> {

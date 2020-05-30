@@ -33,9 +33,20 @@ class EntriesDataAdapter: ListAdapter<Data, EntriesDataAdapter.EntriesViewHolder
 
         fun bind(entriesData: Data) = with(itemView) {
 
-            itemView.text_tittle.text = entriesData.date_created
+            itemView.text_tittle.text = entriesData.id.toString()
 
-            itemView.text_details.text = entriesData.date_of_entry
+            itemView.text_details.text = entriesData.website
+
+            itemView.image_type.setImageResource(when(entriesData.kindly_select_a_category){
+                "Education" -> R.drawable.education_icon
+                "Health" -> R.drawable.health
+                "Vulnerable Populations" -> R.drawable.vunerable_population
+                "Communities" -> R.drawable.communites
+                "Research" -> R.drawable.research
+                else -> R.drawable.others
+            }
+
+            )
         }
         
         companion object {
