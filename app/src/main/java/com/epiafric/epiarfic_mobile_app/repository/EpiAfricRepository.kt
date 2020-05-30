@@ -19,6 +19,7 @@ class EpiAfricRepository (private val api:EntriesApiService, private val dao: En
        withContext(Dispatchers.IO){
            val entries = api.getRecentFromApi(300).await()
           dao.setRecentEntries(entries.data)
+
        }
     }
 
