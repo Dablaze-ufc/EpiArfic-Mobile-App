@@ -12,6 +12,6 @@ interface EntriesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setRecentEntries(recentResponseList: List<Data>)
 
-    @Query("SELECT * FROM recent_entries")
+    @Query("SELECT * FROM recent_entries  ORDER BY id DESC")
     fun getRecentFromDatabase(): LiveData<List<Data>>
 }

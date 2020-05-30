@@ -84,6 +84,7 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
         super.onCleared()
         viewModelJob.cancel()
     }
+
     fun refreshCall(){
         getRecentFromDatabase()
     }

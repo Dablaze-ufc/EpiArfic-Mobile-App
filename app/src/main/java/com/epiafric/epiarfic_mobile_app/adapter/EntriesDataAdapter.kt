@@ -37,7 +37,7 @@ class EntriesDataAdapter: ListAdapter<Data, EntriesDataAdapter.EntriesViewHolder
 
             itemView.text_details.text = entriesData.website
 
-            itemView.image_type.setImageResource(when(entriesData.kindly_select_a_category){
+            itemView.image_type.setImageResource(when(entriesData.category_of_innovation){
                 "Education" -> R.drawable.education_icon
                 "Health" -> R.drawable.health
                 "Vulnerable Populations" -> R.drawable.vunerable_population

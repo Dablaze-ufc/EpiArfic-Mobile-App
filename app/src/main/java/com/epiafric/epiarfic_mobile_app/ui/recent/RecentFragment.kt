@@ -14,51 +14,59 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_recent.*
 
 class RecentFragment : Fragment() {
-
-
+    private lateinit var binding: FragmentRecentBinding
+    private lateinit var recentViewModel: RecentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         val application = requireNotNull(this.activity).application
-         val recentViewModelFactory = RecentViewModelFactory(application)
+        val application = requireNotNull(this.activity).application
+        val recentViewModelFactory = RecentViewModelFactory(application)
 
-         val recentViewModel by lazy {
+        recentViewModel =
             ViewModelProvider(this, recentViewModelFactory).get(RecentViewModel::class.java)
-        }
-        val binding = FragmentRecentBinding.inflate(inflater)
+
+        binding = FragmentRecentBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        binding.recentRecyclerView.adapter = EntriesDataAdapter()
-
-
         binding.viewModel = recentViewModel
 
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.recentRecyclerView.adapter = EntriesDataAdapter()
         recentViewModel.recentResponse.observe(viewLifecycleOwner, Observer {
-            it.getContentIfEventNotHandled()?.let {result ->
-                when(result.status){
+            it.getContentIfEventNotHandled()?.let { result ->
+                when (result.status) {
                     State.LOADING -> refresh(result.isRefreshing!!)
-                    State.SUCCESS -> { showSnackBar(result.message!!)
-                                        refresh(result.isRefreshing!!)   }
-                    State.ERROR -> {showSnackBar(result.message!!)
-                                    refresh(result.isRefreshing!!)}
+                    State.SUCCESS -> {
+                        showSnackBar(result.message!!)
+                        refresh(result.isRefreshing!!)
+                    }
+                    State.ERROR -> {
+                        showSnackBar(result.message!!)
+                        refresh(result.isRefreshing!!)
+                    }
                 }
             }
         })
 
-    binding.refreshLayout.setOnRefreshListener {
-        recentViewModel.refreshCall()
-    }
+        binding.refreshLayout.setOnRefreshListener {
+            recentViewModel.refreshCall()
+        }
 
-        return binding.root
     }
 
     private fun showSnackBar(message: String) {
         Snackbar.make(refreshLayout, message, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun refresh(value: Boolean){
+    private fun refresh(value: Boolean) {
         refreshLayout.isRefreshing = value
     }
 }
