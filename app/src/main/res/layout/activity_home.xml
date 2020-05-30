@@ -20,7 +20,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:itemIconSize="30dp"
-        app:itemIconTint="#127628"
+        app:itemIconTint="@color/primaryLightColor"
         app:headerLayout="@layout/nav_header_home"
         app:menu="@menu/activity_home_drawer" />
 
