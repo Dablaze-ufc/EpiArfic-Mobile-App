@@ -6,40 +6,40 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_recent"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_recent_icon"
             android:title="Recent" />
         <item
             android:id="@+id/nav_health"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_health"
             android:title="Health" />
         <item
             android:id="@+id/nav_research"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_research_icon"
             android:title="Research" />
 
         <item
             android:id="@+id/nav_education"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_education"
             android:title="Education" />
 
         <item
             android:id="@+id/nav_community"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_community"
             android:title="Community" />
 
         <item
             android:id="@+id/nav_business"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_business"
             android:title="Business" />
 
         <item
             android:id="@+id/nav_vulnerable_population"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_vulnorable_community"
             android:title="Vulnerable Population" />
 
         <item
             android:id="@+id/nav_others"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_others"
             android:title="Others" />
     </group>
 </menu>
