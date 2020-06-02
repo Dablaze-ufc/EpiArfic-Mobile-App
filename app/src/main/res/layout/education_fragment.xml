@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.epiafric.epiarfic_mobile_app.ui.education.EducationViewModel" />
     </data>
 
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.education.EducationFragment">
-
-    <TextView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:context=".ui.education.EducationFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/educationRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:entriesData="@{viewModel.education}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/education_list_item"
+            />
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
