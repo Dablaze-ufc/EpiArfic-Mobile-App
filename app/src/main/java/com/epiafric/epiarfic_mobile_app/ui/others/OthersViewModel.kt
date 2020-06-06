@@ -1,7 +1,22 @@
 package com.epiafric.epiarfic_mobile_app.ui.others
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-class OthersViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+import com.epiafric.epiarfic_mobile_app.database.EntriesDatabase
+import com.epiafric.epiarfic_mobile_app.network.EntriesApi
+import com.epiafric.epiarfic_mobile_app.repository.EpiAfricRepository
+
+class OthersViewModel ( application: Application)
+    : AndroidViewModel(application) {
+
+    val epicAfric: EpiAfricRepository
+
+    private val dao = EntriesDatabase.getInstance(application).entriesDao
+
+    init {
+        epicAfric = EpiAfricRepository(EntriesApi.retrofitService, dao)
+    }
+
+    val others = epicAfric.getCategory("Others")
 }

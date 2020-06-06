@@ -28,4 +28,9 @@ class EpiAfricRepository (private val api:EntriesApiService, private val dao: En
         return dao.getRecentFromDatabase()
     }
 
+
+    fun getCategory(category: String): LiveData<List<Data>> {
+        return dao.getCategoryFromDatabase(category)
+    }
+
 }

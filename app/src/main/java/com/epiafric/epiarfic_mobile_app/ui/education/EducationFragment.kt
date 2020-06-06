@@ -17,7 +17,7 @@ import com.epiafric.epiarfic_mobile_app.databinding.EducationFragmentBinding
 class EducationFragment : Fragment() {
 
     companion object {
-        fun newInstance() = EducationFragment()
+      //  fun newInstance() = EducationFragment()
     }
 
     private lateinit var binding: EducationFragmentBinding
@@ -27,7 +27,7 @@ class EducationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(EducationViewModel::class.java)
+       // viewModel = ViewModelProvider(this).get(EducationViewModel::class.java)
         binding = EducationFragmentBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
@@ -41,7 +41,7 @@ class EducationFragment : Fragment() {
 
         binding.viewModel = educationViewModel
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = (this)
 
         return binding.root
     }
