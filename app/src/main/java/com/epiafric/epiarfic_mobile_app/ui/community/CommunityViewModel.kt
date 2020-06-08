@@ -19,5 +19,5 @@ class CommunityViewModel(val dataSource: EntriesDao, application: Application)
         epicAfric = EpiAfricRepository(retrofitService, dao)
     }
 
-    val community = epicAfric.getCategory("Community")
+    val community = epicAfric.getCategory("community")
 }

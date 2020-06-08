@@ -8,7 +8,7 @@ import com.epiafric.epiarfic_mobile_app.database.EntriesDatabase
 import com.epiafric.epiarfic_mobile_app.network.EntriesApi.retrofitService
 import com.epiafric.epiarfic_mobile_app.repository.EpiAfricRepository
 
-class EducationViewModel(val dataSource: EntriesDao, application: Application):
+class EducationViewModel(application: Application):
     AndroidViewModel(application) {
 
  val epiafric: EpiAfricRepository

@@ -21,7 +21,7 @@ class EducationFragment : Fragment() {
     }
 
     private lateinit var binding: EducationFragmentBinding
-    private lateinit var viewModel: EducationViewModel
+    private lateinit var educationViewModel: EducationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +32,16 @@ class EducationFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = EntriesDatabase.getInstance(application).entriesDao
+       // val dataSource = EntriesDatabase.getInstance(application).entriesDao
 
-        val viewModelFactory = EducationViewModelFactory(dataSource, application)
+        val viewModelFactory = EducationViewModelFactory(application)
 
-        val educationViewModel = ViewModelProviders.of(this, viewModelFactory)
+        educationViewModel = ViewModelProvider(this, viewModelFactory)
             .get(EducationViewModel::class.java)
 
         binding.viewModel = educationViewModel
 
-        binding.lifecycleOwner = (this)
+        binding.lifecycleOwner = this
 
         return binding.root
     }
