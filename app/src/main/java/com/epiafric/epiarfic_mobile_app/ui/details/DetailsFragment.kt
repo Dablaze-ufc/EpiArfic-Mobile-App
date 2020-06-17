@@ -6,23 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.epiafric.epiarfic_mobile_app.R
+import com.epiafric.epiarfic_mobile_app.databinding.DetailsFragmentBinding
+import com.epiafric.epiarfic_mobile_app.model.Data
 
 class DetailsFragment : Fragment() {
 
 
-
     private lateinit var viewModel: DetailsViewModel
+    private lateinit var binding: DetailsFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.details_fragment, container, false)
+
+        binding = DetailsFragmentBinding.inflate(inflater)
+        val factory = DetailsViewModelFactory(arguments?.get("data") as Data)
+        viewModel = ViewModelProvider(this,factory).get(DetailsViewModel::class.java)
+        binding.viewModel = viewModel
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
 }

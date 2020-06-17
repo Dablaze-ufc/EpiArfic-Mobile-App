@@ -5,10 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-
-import com.epiafric.epiarfic_mobile_app.adapter.EntriesDataAdapter
-
 import com.epiafric.epiarfic_mobile_app.databinding.OthersFragmentBinding
 
 
@@ -27,12 +23,12 @@ class OthersFragment : Fragment() {
 
        // val dataSource = EntriesDatabase.getInstance(application).entriesDao
 
-        val othersViewModelFactory = OthersViewModelFactory(application)
+//        val othersViewModelFactory = OthersViewModelFactory(application)
 
-        othersViewModel =
-            ViewModelProvider(this, othersViewModelFactory).get(OthersViewModel::class.java)
+//        othersViewModel =
+//            ViewModelProvider(this, othersViewModelFactory).get(OthersViewModel::class.java)
 
-        binding.viewModel = othersViewModel
+//        binding.viewModel = othersViewModel
 
         binding.lifecycleOwner = this
 
@@ -42,6 +38,6 @@ class OthersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.othersRecyclerView.adapter = EntriesDataAdapter()
+//        binding.othersRecyclerView.adapter = EntriesDataAdapter()
     }
 }

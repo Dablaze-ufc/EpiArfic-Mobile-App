@@ -10,6 +10,9 @@
         android:name="com.epiafric.epiarfic_mobile_app.ui.recent.RecentFragment"
         android:label="Recent"
         tools:layout="@layout/fragment_recent">
+        <action
+            android:id="@+id/action_nav_recent_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
@@ -48,4 +51,8 @@
         android:name="com.epiafric.epiarfic_mobile_app.ui.vunerable_population.VulnerablePopulationFragment"
         android:label="Vulnerable Population"
         tools:layout="@layout/vunerable_population_fragment"/>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.epiafric.epiarfic_mobile_app.ui.details.DetailsFragment"
+        android:label="DetailsFragment" />
 </navigation>

@@ -29,6 +29,12 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _recent : LiveData<List<Data>>
 
+    private val _navigateToDataDetail = MutableLiveData<Data>()
+
+    val navigateToDataDetail: LiveData<Data>
+        get() = _navigateToDataDetail
+
+
     init {
         repository = EpiAfricRepository(retrofitService,dao)
 
@@ -87,6 +93,13 @@ class RecentViewModel(application: Application) : AndroidViewModel(application) 
 
     fun refreshCall(){
         getRecentFromDatabase()
+    }
+    fun onDataClicked(data: Data){
+        _navigateToDataDetail.value = data
+    }
+
+    fun onDetailsNavigatedDone(){
+        _navigateToDataDetail.value = null
     }
 }
 

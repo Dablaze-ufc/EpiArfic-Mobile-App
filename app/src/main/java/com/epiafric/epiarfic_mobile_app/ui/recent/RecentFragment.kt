@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.epiafric.epiarfic_mobile_app.R
 import com.epiafric.epiarfic_mobile_app.adapter.EntriesDataAdapter
+import com.epiafric.epiarfic_mobile_app.adapter.OnclickListener
 import com.epiafric.epiarfic_mobile_app.databinding.FragmentRecentBinding
 import com.epiafric.epiarfic_mobile_app.util.State
 import com.google.android.material.snackbar.Snackbar
@@ -17,16 +20,17 @@ class RecentFragment : Fragment() {
     private lateinit var binding: FragmentRecentBinding
     private lateinit var recentViewModel: RecentViewModel
 
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(this.activity).application
         val recentViewModelFactory = RecentViewModelFactory(application)
 
         recentViewModel =
-            ViewModelProvider(this, recentViewModelFactory).get(RecentViewModel::class.java)
+                ViewModelProvider(this, recentViewModelFactory).get(RecentViewModel::class.java)
 
         binding = FragmentRecentBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -39,7 +43,19 @@ class RecentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recentRecyclerView.adapter = EntriesDataAdapter()
+        binding.recentRecyclerView.adapter = EntriesDataAdapter(OnclickListener { data ->
+            recentViewModel.onDataClicked(data)
+
+        })
+
+        recentViewModel.navigateToDataDetail.observe(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            bundle.putParcelable("data", it)
+            it?.let {
+                this.findNavController().navigate(R.id.action_nav_recent_to_detailsFragment, bundle)
+                recentViewModel.onDetailsNavigatedDone()
+            }
+        })
         recentViewModel.recentResponse.observe(viewLifecycleOwner, Observer {
             it.getContentIfEventNotHandled()?.let { result ->
                 when (result.status) {
@@ -69,4 +85,6 @@ class RecentFragment : Fragment() {
     private fun refresh(value: Boolean) {
         refreshLayout.isRefreshing = value
     }
+
+
 }

@@ -1,8 +1,11 @@
 package com.epiafric.epiarfic_mobile_app.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "recent_entries")
 data class Data(
         val are_there_anymore_bottle_necks_within_your_organisationprocess: String?,
@@ -31,4 +34,4 @@ data class Data(
         val what_did_it_cost_you: String?,
         val what_existing_platform_did_you_leverage_on_and_how: String?,
         val what_problem_were_you_looking_to_solve: String?
-)
+) : Parcelable

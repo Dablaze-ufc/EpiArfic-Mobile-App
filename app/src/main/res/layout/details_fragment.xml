@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.epiafric.epiarfic_mobile_app.ui.details.DetailsViewModel" />
 
     </data>
 
@@ -20,7 +23,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/health"
+           app:imageData="@{viewModel.data}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +40,7 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
+            android:text="@{viewModel.data.name}"
             tools:text="TextView"
             style="@style/text_details" />
 
@@ -50,6 +54,7 @@
         <TextView
             android:id="@+id/textStatement"
             style="@style/text_details"
+            android:text="@{viewModel.data.what_problem_were_you_looking_to_solve}"
             app:layout_constraintEnd_toEndOf="@+id/textName"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
@@ -66,6 +71,7 @@
             android:id="@+id/textSolution"
             style="@style/text_details"
             tools:text="TextView"
+            android:text="@{viewModel.data.brief_description_of_innovation}"
             app:layout_constraintEnd_toEndOf="@+id/textStatement"
             app:layout_constraintStart_toStartOf="@+id/textStatement"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -81,6 +87,7 @@
             android:id="@+id/textWebsite"
             style="@style/text_details"
             tools:text="TextView"
+            android:text="@{viewModel.data.website}"
             app:layout_constraintEnd_toEndOf="@+id/textSolution"
             app:layout_constraintStart_toStartOf="@+id/textSolution"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -96,6 +103,7 @@
             android:id="@+id/textUrl"
             tools:text="TextView"
             style="@style/text_details"
+            android:text="@{viewModel.data.url_link}"
             app:layout_constraintEnd_toEndOf="@+id/textWebsite"
             app:layout_constraintStart_toStartOf="@+id/textWebsite"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />

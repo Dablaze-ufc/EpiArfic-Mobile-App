@@ -18,7 +18,7 @@ class OthersViewModel ( application: Application)
         epicAfric = EpiAfricRepository(EntriesApi.retrofitService, dao)
     }
 
-    val others = epicAfric.getCategory("others")
+//    val others = epicAfric.getCategory("others")
 
 
 }
