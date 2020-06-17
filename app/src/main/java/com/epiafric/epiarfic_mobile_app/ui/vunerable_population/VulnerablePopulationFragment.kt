@@ -1,12 +1,16 @@
 package com.epiafric.epiarfic_mobile_app.ui.vunerable_population
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.epiafric.epiarfic_mobile_app.R
 import com.epiafric.epiarfic_mobile_app.adapter.EntriesDataAdapter
+import com.epiafric.epiarfic_mobile_app.adapter.OnclickListener
 import com.epiafric.epiarfic_mobile_app.databinding.VunerablePopulationFragmentBinding
 
 class VulnerablePopulationFragment : Fragment() {
@@ -24,11 +28,8 @@ class VulnerablePopulationFragment : Fragment() {
     ): View? {
         binding = VunerablePopulationFragmentBinding.inflate(inflater)
 
-        val application = requireNotNull(this.activity).application
 
-        val vulnerableViewModelFactory = VunerablePopulationViewModelFactory(application)
-
-        vulnerableViewModel = ViewModelProvider(this, vulnerableViewModelFactory).
+        vulnerableViewModel = ViewModelProvider(this).
                     get(VunerablePopulationViewModel::class.java)
 
         binding.viewModel = vulnerableViewModel
@@ -41,7 +42,18 @@ class VulnerablePopulationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.vulnerableRecyclerView.adapter = EntriesDataAdapter()
+        binding.vulnerableRecyclerView.adapter = EntriesDataAdapter(OnclickListener { data ->
+            vulnerableViewModel.onDataClicked(data)
+
+        })
+        vulnerableViewModel.navigateToDataDetail.observe(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            bundle.putParcelable("data", it)
+            it?.let {
+                this.findNavController().navigate(R.id.detailsFragment, bundle)
+                vulnerableViewModel.onDetailsNavigatedDone()
+            }
+        })
     }
 
 }

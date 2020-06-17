@@ -43,6 +43,11 @@ class RecentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.refreshLayout.setOnRefreshListener {
+            recentViewModel.refreshCall()
+        }
+        refresh(false)
+
         binding.recentRecyclerView.adapter = EntriesDataAdapter(OnclickListener { data ->
             recentViewModel.onDataClicked(data)
 
@@ -52,7 +57,7 @@ class RecentFragment : Fragment() {
             val bundle = Bundle()
             bundle.putParcelable("data", it)
             it?.let {
-                this.findNavController().navigate(R.id.action_nav_recent_to_detailsFragment, bundle)
+                this.findNavController().navigate(R.id.detailsFragment, bundle)
                 recentViewModel.onDetailsNavigatedDone()
             }
         })
@@ -72,9 +77,7 @@ class RecentFragment : Fragment() {
             }
         })
 
-        binding.refreshLayout.setOnRefreshListener {
-            recentViewModel.refreshCall()
-        }
+
 
     }
 

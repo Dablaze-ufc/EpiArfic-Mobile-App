@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.epiafric.epiarfic_mobile_app.R
 
 import com.epiafric.epiarfic_mobile_app.adapter.EntriesDataAdapter
+import com.epiafric.epiarfic_mobile_app.adapter.OnclickListener
 
 import com.epiafric.epiarfic_mobile_app.databinding.OthersFragmentBinding
 
@@ -42,7 +46,19 @@ class OthersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.othersRecyclerView.adapter = EntriesDataAdapter()
+        binding.othersRecyclerView.adapter = EntriesDataAdapter(OnclickListener { data ->
+            othersViewModel.onDataClicked(data)
+
+        })
+        othersViewModel.navigateToDataDetail.observe(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            bundle.putParcelable("data", it)
+            it?.let {
+                this.findNavController().navigate(R.id.detailsFragment, bundle)
+                othersViewModel.onDetailsNavigatedDone()
+            }
+        })
+
     }
 
 }

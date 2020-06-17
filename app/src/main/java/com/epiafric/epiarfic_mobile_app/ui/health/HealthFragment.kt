@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.epiafric.epiarfic_mobile_app.R
 import com.epiafric.epiarfic_mobile_app.adapter.EntriesDataAdapter
+import com.epiafric.epiarfic_mobile_app.adapter.OnclickListener
 import com.epiafric.epiarfic_mobile_app.databinding.FragmentHealthBinding
 
 class HealthFragment : Fragment() {
@@ -20,26 +23,36 @@ class HealthFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val application = requireNotNull(this.activity).application
-
-        val healthViewModelFactory = HealthViewModelFactory(application)
 
         binding = FragmentHealthBinding.inflate(inflater)
 
         healthViewModel =
-            ViewModelProvider(this, healthViewModelFactory).get(HealthViewModel::class.java)
+            ViewModelProvider(this).get(HealthViewModel::class.java)
 
         binding.lifecycleOwner = this
 
         binding.viewModel = healthViewModel
 
         return binding.root
-        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.healthRecyclerView.adapter = EntriesDataAdapter()
-    }
+        binding.healthRecyclerView.adapter = EntriesDataAdapter(OnclickListener { data ->
+            healthViewModel.onDataClicked(data)
+
+        })
+        healthViewModel.navigateToDataDetail.observe(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            bundle.putParcelable("data", it)
+            it?.let {
+                this.findNavController().navigate(R.id.detailsFragment, bundle)
+                healthViewModel.onDetailsNavigatedDone()
+            }
+        })
 
     }
+
+
+}
 

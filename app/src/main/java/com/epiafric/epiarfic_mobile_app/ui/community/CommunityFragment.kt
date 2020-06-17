@@ -1,15 +1,16 @@
 package com.epiafric.epiarfic_mobile_app.ui.community
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
+import androidx.navigation.fragment.findNavController
 import com.epiafric.epiarfic_mobile_app.R
 import com.epiafric.epiarfic_mobile_app.adapter.EntriesDataAdapter
+import com.epiafric.epiarfic_mobile_app.adapter.OnclickListener
 import com.epiafric.epiarfic_mobile_app.database.EntriesDatabase
 import com.epiafric.epiarfic_mobile_app.databinding.CommunityFragmentBinding
 
@@ -19,8 +20,8 @@ class CommunityFragment : Fragment() {
         fun newInstance() = CommunityFragment()
     }
 
-    //private lateinit var viewModel: CommunityViewModel
-   private lateinit var binding: CommunityFragmentBinding
+    private lateinit var communityViewModel: CommunityViewModel
+    private lateinit var binding: CommunityFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +36,11 @@ class CommunityFragment : Fragment() {
 
         val viewModelFactory = CommunityViewModelFactory(dataSource, application)
 
-        val communityViewModel = ViewModelProviders.of(this,viewModelFactory).get(CommunityViewModel::class.java)
+        communityViewModel =
+            ViewModelProvider(this, viewModelFactory).get(CommunityViewModel::class.java)
 
-//        val communityViewModel = ViewModelProviders.of(this, viewModelFactory).get(CommunityViewModel
-//            ::class.java)
-        binding.setLifecycleOwner(this)
+
+        binding.lifecycleOwner = this
 
         binding.viewModel = communityViewModel
 
@@ -49,6 +50,19 @@ class CommunityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.communityRecyclerView.adapter = EntriesDataAdapter()
+        binding.communityRecyclerView.adapter = EntriesDataAdapter(OnclickListener { data ->
+            communityViewModel.onDataClicked(data)
+
+        })
+        communityViewModel.navigateToDataDetail.observe(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            bundle.putParcelable("data", it)
+            it?.let {
+                this.findNavController().navigate(R.id.detailsFragment, bundle)
+                communityViewModel.onDetailsNavigatedDone()
+            }
+        })
+
     }
 }
+
