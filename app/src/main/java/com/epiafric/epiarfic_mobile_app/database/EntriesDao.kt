@@ -16,5 +16,5 @@ interface EntriesDao {
     fun getRecentFromDatabase(): LiveData<List<Data>>
 
     @Query("SELECT * FROM recent_entries WHERE category_of_innovation = :category ORDER BY id DESC")
-    fun getCategoryFromDatabase(category: String): LiveData<List<Data>>
+   fun getCategoryFromDatabase(category: String):  LiveData<List<Data>>
 }

@@ -5,10 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.epiafric.epiarfic_mobile_app.R
+
+import com.epiafric.epiarfic_mobile_app.adapter.EntriesDataAdapter
+import com.epiafric.epiarfic_mobile_app.adapter.OnclickListener
+
 import com.epiafric.epiarfic_mobile_app.databinding.OthersFragmentBinding
 
 
 class OthersFragment : Fragment() {
+
 
     private lateinit var othersViewModel: OthersViewModel
     private lateinit var binding: OthersFragmentBinding
@@ -23,12 +32,12 @@ class OthersFragment : Fragment() {
 
        // val dataSource = EntriesDatabase.getInstance(application).entriesDao
 
-//        val othersViewModelFactory = OthersViewModelFactory(application)
+        val othersViewModelFactory = OthersViewModelFactory(application)
 
-//        othersViewModel =
-//            ViewModelProvider(this, othersViewModelFactory).get(OthersViewModel::class.java)
+        othersViewModel =
+            ViewModelProvider(this, othersViewModelFactory).get(OthersViewModel::class.java)
 
-//        binding.viewModel = othersViewModel
+        binding.viewModel = othersViewModel
 
         binding.lifecycleOwner = this
 
@@ -37,7 +46,19 @@ class OthersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.othersRecyclerView.adapter = EntriesDataAdapter(OnclickListener { data ->
+            othersViewModel.onDataClicked(data)
 
-//        binding.othersRecyclerView.adapter = EntriesDataAdapter()
+        })
+        othersViewModel.navigateToDataDetail.observe(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            bundle.putParcelable("data", it)
+            it?.let {
+                this.findNavController().navigate(R.id.detailsFragment, bundle)
+                othersViewModel.onDetailsNavigatedDone()
+            }
+        })
+
     }
+
 }
