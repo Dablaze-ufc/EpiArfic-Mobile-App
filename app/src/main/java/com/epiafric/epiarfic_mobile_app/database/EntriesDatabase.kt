@@ -8,23 +8,23 @@ import com.epiafric.epiarfic_mobile_app.model.Data
 
 @Database(entities = [Data::class],version = 1,exportSchema = false)
 abstract class EntriesDatabase : RoomDatabase() {
-    abstract val entriesDao: EntriesDao
+  abstract val entriesDao: EntriesDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: EntriesDatabase? = null
-        fun getInstance(context: Context): EntriesDatabase {
-            synchronized(this) {
-                var instance = INSTANCE
-                if (instance == null) {
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        EntriesDatabase::class.java,
-                        "entries_database"
-                    ).fallbackToDestructiveMigration().build()
-                }
-                return instance
-            }
+  companion object {
+    @Volatile
+    private var INSTANCE: EntriesDatabase? = null
+    fun getInstance(context: Context): EntriesDatabase {
+      synchronized(this) {
+        var instance = INSTANCE
+        if (instance == null) {
+          instance = Room.databaseBuilder(
+                  context.applicationContext,
+                  EntriesDatabase::class.java,
+                  "entries_database"
+          ).fallbackToDestructiveMigration().build()
         }
+        return instance
+      }
     }
+  }
 }

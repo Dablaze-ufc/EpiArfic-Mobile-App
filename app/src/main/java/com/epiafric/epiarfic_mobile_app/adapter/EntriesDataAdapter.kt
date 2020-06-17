@@ -10,7 +10,7 @@ import com.epiafric.epiarfic_mobile_app.R
 import com.epiafric.epiarfic_mobile_app.model.Data
 import kotlinx.android.synthetic.main.recent_list_item.view.*
 
-class EntriesDataAdapter: ListAdapter<Data, EntriesDataAdapter.EntriesViewHolder>(DiffCallBack) {
+class EntriesDataAdapter(val clickListener: OnclickListener): ListAdapter<Data, EntriesDataAdapter.EntriesViewHolder>(DiffCallBack) {
     companion object DiffCallBack: DiffUtil.ItemCallback<Data>(){
         override fun areItemsTheSame(oldItem: Data, newItem: Data): Boolean {
             return oldItem === newItem
@@ -25,17 +25,20 @@ class EntriesDataAdapter: ListAdapter<Data, EntriesDataAdapter.EntriesViewHolder
 
     override fun onBindViewHolder(holder: EntriesViewHolder, position: Int) {
         val entriesData = getItem(position)
-        holder.bind(entriesData)
+        holder.bind(entriesData, clickListener)
 
     }
 
     class EntriesViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
 
-        fun bind(entriesData: Data) = with(itemView) {
+        fun bind(entriesData: Data, clickListener: OnclickListener) = with(itemView) {
 
-            itemView.text_tittle.text = entriesData.id.toString()
+            itemView.text_tittle.text = entriesData.name
 
             itemView.text_details.text = entriesData.website
+            itemView.setOnClickListener{
+                clickListener.onClick(entriesData)
+            }
 
             itemView.image_type.setImageResource(when(entriesData.category_of_innovation){
                 "Education" -> R.drawable.education_icon
@@ -57,4 +60,8 @@ class EntriesDataAdapter: ListAdapter<Data, EntriesDataAdapter.EntriesViewHolder
             }
         }
     }
+}
+
+class OnclickListener(val clickListener: (data: Data) -> Unit){
+    fun onClick(data: Data) = clickListener(data)
 }

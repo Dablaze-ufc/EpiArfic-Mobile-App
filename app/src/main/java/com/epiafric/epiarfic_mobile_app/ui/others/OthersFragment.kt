@@ -14,9 +14,6 @@ import com.epiafric.epiarfic_mobile_app.databinding.OthersFragmentBinding
 
 class OthersFragment : Fragment() {
 
-    companion object {
-      //  fun newInstance() = OthersFragment()
-    }
 
     private lateinit var othersViewModel: OthersViewModel
     private lateinit var binding: OthersFragmentBinding
